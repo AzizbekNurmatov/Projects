@@ -1,0 +1,111 @@
+import numpy as np
+import random
+import matplotlib.pyplot as plt
+
+
+# Pre-generated perfect maze (0: open space, 1: wall)
+maze = np.array([
+    [0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+    [0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 1, 1, 0],
+    [1, 1, 0, 1, 1, 1, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 1, 1, 1, 1, 0, 1, 1, 1, 0],
+    [0, 1, 0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 1, 1, 0, 1, 0, 0],
+    [0, 1, 0, 1, 0, 0, 0, 1, 0, 0],
+    [0, 1, 0, 0, 0, 1, 0, 0, 0, 0]
+])
+
+# Task 1: Random Initialization of robot and target positions
+def random_position(maze):
+    while True: 
+        x = random.randint(0, maze.shape[0] - 1)
+        y = random.randint(0, maze.shape[0] - 1)
+        if maze[x,y] == 0:
+            return (x,y)
+        
+    
+robot_pos = random_position(maze)
+target_pos = random_position(maze)
+
+# Task 3: Distance Metrics (Euclidean, Manhattan, Chebyshev)
+def euclidean_distance(x1, y1, x2, y2):
+    return np.sqrt((x1 - x2)**2 + (y1 - y2)**2)
+
+def manhattan_distance(x1, y1, x2, y2):
+    return abs(x1 - x2) + abs(y1 - y2)
+
+def chebyshev_distance(x1, y1, x2, y2):
+    return max(abs(x1 - x2), abs(y1 - y2))
+
+# Task 2: Randomized Obstacles with Dynamic Removal
+def modify_random_obstacle(maze):
+    x, y = random.randint(0, maze.shape[0] - 1), random.randint(0, maze.shape[1] - 1)
+    if random.random() < 0.5:
+        if maze[x][y] == 0:
+            maze[x][y] = 1
+    else:
+        if maze[x][y] == 1: 
+            maze[x][y] = 0
+
+# Task 4: Movement Logic
+def move_robot(maze, robot_pos, target_pos):
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Up, Down, Left, Right
+    current_x, current_y = robot_pos
+    best_move = None
+    min_distance = float('inf')
+
+    # Smart selection of distance metric
+    for dx, dy in directions:
+        new_x, new_y = current_x + dx, current_y + dy
+        if 0 <= new_x < maze.shape[0] and 0 <= new_y < maze.shape[1] and maze[new_x][new_y] == 0:
+            # Calculate distances
+            euclidean = euclidean_distance(new_x, new_y, target_pos[0], target_pos[1])
+            manhatten = manhattan_distance(new_x, new_y, target_pos[0], target_pos[1])
+            chebyshev = chebyshev_distance(new_x, new_y, target_pos[0], target_pos[1])
+            
+            # Choose the best distance metric based on the situation
+            # Find the best move based on the chosen distance
+            if manhatten < min_distance:
+                best_move = (new_x, new_y)
+                min_distance = euclidean
+    if best_move:
+        return best_move
+    else:
+        return robot_pos
+    
+
+# Task 5: Visualization of Maze
+def visualize_maze(maze, robot_pos, target_pos,step_number):
+    maze_copy = maze.copy()
+    maze_copy[robot_pos] = 2  # Mark robot position
+    maze_copy[target_pos] = 3  # Mark target position
+    plt.imshow(maze_copy, cmap="hot", interpolation="nearest")
+    plt.title(f"Maze with Robot and Target - Step number: {step_number}!")
+    plt.show()
+
+# Simulation loop
+steps = 0
+while robot_pos != target_pos:
+    robot_pos = move_robot(maze, robot_pos, target_pos)
+    visualize_maze(maze, robot_pos, target_pos, steps)
+    modify_random_obstacle(maze)
+    steps += 1
+
+print(f"Robot reached the target in {steps} steps!")
+
+# The presence of obstacles for the robot in the maze 
+# affects its navigation strategy as it constantly has to 
+# reconfigure its path in order to maintain the least amount
+# of steps to reach its target. Manhatten distance was choosen
+# as the selected measurement that would ensure the least amount 
+# of steps because we are dealing with a grid-like situation here
+# The multidimensional arrays, or the matrix, here makes it 
+# so that the robot has to move in right angles and move "around"
+# blocks, meaning a Manhatten distance could be used to calculate
+# the least amount of steps in order to reach the target 
+
+# In some takes it can get to the target perfectly, in other takes
+# it will repeat the same moves over and over again. Might need to 
+# do multiple iterations to see one where it fulfills its task to completion.

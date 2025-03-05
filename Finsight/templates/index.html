@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-top: 20px;
+        }
+        form {
+            margin: 20px auto;
+            padding: 10px;
+            background: white;
+            display: inline-block;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .stock-data {
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+        .stock-data h2 {
+            color: #333;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        table {
+            margin: 10px auto;
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            background: #ffffff;
+        }
+        th, td {
+            padding: 12px 15px;
+            border: none;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            color: #666;
+            font-weight: normal;
+            width: 40%;
+        }
+        td {
+            color: #333;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        img {
+            margin-top: 20px;
+            max-width: 90%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stock Price Tracker</h1>
+    
+    <form method="POST">
+        <input type="text" name="ticker" placeholder="Enter Stock Ticker (e.g., AAPL)" required>
+        <select name="time_range">
+            <option value="7" {% if selected_time == 7 %}selected{% endif %}>Last 7 Days</option>
+            <option value="30" {% if selected_time == 30 %}selected{% endif %}>Last 30 Days</option>
+            <option value="90" {% if selected_time == 90 %}selected{% endif %}>Last 90 Days</option>
+        </select>
+        <button type="submit">Get Data</button>
+    </form>
+
+    {% if stock_info %}
+    <div class="stock-data">
+        <h2>{{ ticker }} Latest Prices</h2>
+        <table>
+            <tr><th>Open</th><td>${{ stock_info['Open'] }}</td></tr>
+            <tr><th>High</th><td>${{ stock_info['High'] }}</td></tr>
+            <tr><th>Low</th><td>${{ stock_info['Low'] }}</td></tr>
+            <tr><th>Close</th><td>${{ stock_info['Close'] }}</td></tr>
+        </table>
+    </div>
+    {% endif %}
+
+    {% if plot_url %}
+    <img src="data:image/png;base64,{{ plot_url }}" alt="Stock Chart">
+    {% endif %}
+</body>
+</html>
