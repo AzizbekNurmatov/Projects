@@ -1,7 +1,17 @@
 from transformers import pipeline
-myPipe = pipeline(
+
+userInput = input('Enter a sentence to get run: ')
+
+sentiment = pipeline(
     'text-classification',
     model = 'distilbert-base-uncased-finetuned-sst-2-english'
 )
 
-print(myPipe('I hate school so much it absolutely sucks'))
+
+grammar = pipeline(
+    task = 'text-classification', 
+    model = 'abdulmatinomotoso/English_Grammar_Checker'
+)
+
+print(grammar(userInput))
+print(sentiment(userInput))
