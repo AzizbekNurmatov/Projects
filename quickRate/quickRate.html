@@ -20,48 +20,40 @@
   </header>
 
   <main class="dashboard-container">
-  <aside class="sidebar">
-    <div class="user-profile">
-      <img src="https://via.placeholder.com/80" alt="User Avatar" />
-      <h3>Welcome, Azizbek</h3>
-      <button class="btn-logout">Log Out</button>
-    </div>
+    <aside class="sidebar">
+      <div class="user-profile">
+        <img src="https://via.placeholder.com/80" alt="User Avatar" />
+        <h3>Welcome, Azizbek</h3>
+        <button class="btn-logout">Log Out</button>
+      </div>
 
-    <div class="filters">
-      <h4>Filter by Category</h4>
-      <select id="categoryFilter">
-        <option value="">All Categories</option>
-        <option value="cleaning">Cleaning</option>
-        <option value="plumbing">Plumbing</option>
-        <option value="delivery">Delivery</option>
-        <option value="auto">Auto Repair</option>
-      </select>
-    </div>
-  </aside>
+      <div class="filters">
+        <h4>Filter by Category</h4>
+        <select id="categoryFilter">
+          <option value="">All Categories</option>
+          <option value="cleaning">Cleaning</option>
+          <option value="plumbing">Plumbing</option>
+          <option value="delivery">Delivery</option>
+          <option value="auto">Auto Repair</option>
+        </select>
+      </div>
+    </aside>
 
-  <section class="main-content">
-    <div class="search-bar">
-      <input
-        type="search"
-        id="searchInput"
-        placeholder="Search services or businesses..."
-        aria-label="Search services or businesses"
-      />
-    </div>
+    <section class="main-content">
+      <div class="search-bar">
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Search services or businesses..."
+          aria-label="Search services or businesses"
+        />
+      </div>
 
-    <div id="business-list" class="business-list">
-      <div class="card business-card">
-        <h2>EZ Plumbing & Repair</h2>
-        <p>Fast and affordable plumbing services.</p>
-        <p class="rating">Rating: ⭐ 4.8</p>
-        <button>Book Now</button>
-        <button>Request Quote</button>
-    </div>
-
-    </div>
-  </section>
-</main>
-
+      <div id="business-list" class="business-list">
+        <!-- Business cards will be dynamically inserted here -->
+      </div>
+    </section>
+  </main>
 
   <script src="./quickRate.js"></script>
 </body>
