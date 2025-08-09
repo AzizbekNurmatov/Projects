@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us - TravelBloom</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-image: url('city.jpg'); /* same background image as other pages */
+        background-size: cover;
+        background-position: center;
+        color: white;
+    }
+
+    /* Navbar */
+    nav {
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+    }
+    .logo {
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+    }
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: 500;
+    }
+    .nav-links a:hover {
+        text-decoration: underline;
+    }
+
+    /* Page content overlay */
+    .overlay {
+        background-color: rgba(0, 0, 0, 0.6);
+        min-height: 100vh;
+        padding: 50px;
+    }
+    .container {
+        max-width: 600px;
+        margin: auto;
+    }
+    h1 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    /* Form styles */
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    input, textarea {
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+    textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+    button {
+        padding: 10px;
+        background-color: #2c7;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #249;
+    }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">TravelBloom</div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+    </div>
+</nav>
+
+<!-- Content -->
+<div class="overlay">
+    <div class="container">
+        <h1>Contact Us</h1>
+        <form action="#" method="post">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Write your message here..." required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

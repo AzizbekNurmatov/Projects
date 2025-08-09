@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TravelBloom - Home</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-image: url('city.jpg'); /* Replace with your background image */
+        background-size: cover;
+        background-position: center;
+        color: white;
+    }
+
+    /* Navbar */
+    nav {
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+    }
+    .logo {
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+    }
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: 500;
+    }
+    .nav-links a:hover {
+        text-decoration: underline;
+    }
+    .search-bar {
+        display: flex;
+        align-items: center;
+    }
+    .search-bar input[type="text"] {
+        padding: 6px;
+        border: none;
+        border-radius: 3px;
+        margin-right: 5px;
+    }
+    .search-bar button {
+        padding: 6px 10px;
+        margin-left: 3px;
+        border: none;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+    .search-btn {
+        background-color: #2c7;
+        color: white;
+    }
+    .clear-btn {
+        background-color: #f33;
+        color: white;
+    }
+
+    /* Main content */
+    .content {
+        max-width: 600px;
+        margin-top: 150px;
+        margin-left: 60px;
+    }
+    .content h1 {
+        font-size: 50px;
+        line-height: 1.2;
+        font-weight: bold;
+    }
+    .content p {
+        margin-top: 20px;
+        font-size: 16px;
+        line-height: 1.5;
+        background-color: rgba(0,0,0,0.5);
+        padding: 10px;
+        display: inline-block;
+    }
+    .book-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #2c7;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+    .book-btn:hover {
+        background-color: #249;
+    }
+
+    /* Social icons */
+    .social-icons {
+        position: fixed;
+        top: 50%;
+        left: 20px;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .social-icons a {
+        color: white;
+        font-size: 20px;
+        text-decoration: none;
+    }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">TravelBloom</div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+    </div>
+    <div class="search-bar">
+        <input type="text" placeholder="Enter a destination or keyword">
+        <button class="search-btn">Search</button>
+        <button class="clear-btn">Clear</button>
+    </div>
+</nav>
+
+<!-- Social Media Icons -->
+<div class="social-icons">
+    <a href="#">&#xf09a;</a> <!-- Facebook -->
+    <a href="#">&#xf16d;</a> <!-- Instagram -->
+    <a href="#">&#xf167;</a> <!-- YouTube -->
+</div>
+
+<!-- Main Content -->
+<div class="content">
+    <h1>EXPLORE<br>DREAM<br>DESTINATION</h1>
+    <p>It encourages exploration of unfamiliar territories, embracing diverse cultures and landscapes, while pursuing the desired destination that captivates the heart and ignites a sense of wonder.</p>
+    <a href="#" class="book-btn">BOOK NOW</a>
+</div>
+
+</body>
+</html>

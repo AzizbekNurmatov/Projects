@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us - TravelBloom</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-image: url('city.jpg'); /* same background image as Home page */
+        background-size: cover;
+        background-position: center;
+        color: white;
+    }
+
+    /* Navbar */
+    nav {
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+    }
+    .logo {
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+    }
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: 500;
+    }
+    .nav-links a:hover {
+        text-decoration: underline;
+    }
+
+    /* Content container with overlay for readability */
+    .overlay {
+        background-color: rgba(0, 0, 0, 0.6);
+        min-height: 100vh;
+        padding: 50px;
+    }
+    .container {
+        max-width: 900px;
+        margin: auto;
+    }
+    h1, h2 {
+        margin-bottom: 20px;
+    }
+    p {
+        line-height: 1.6;
+        font-size: 16px;
+        margin-bottom: 40px;
+    }
+
+    /* Team Section */
+    .team {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .team-member {
+        flex: 1 1 250px;
+        background-color: rgba(255,255,255,0.1);
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+    }
+    .team-member h3 {
+        margin-bottom: 5px;
+        font-size: 18px;
+    }
+    .team-member p {
+        margin: 0;
+        font-size: 14px;
+        color: #ccc;
+    }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">TravelBloom</div>
+    <div class="nav-links">
+        <a href="travelRecommendation.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="overlay">
+    <div class="container">
+        <h1>About Us</h1>
+        <p>
+            At TravelBloom, our mission is to help travelers explore the most breathtaking destinations around the world.
+            We pride ourselves on providing personalized recommendations, insider tips, and travel inspiration that 
+            make your journeys truly unforgettable. Our team is passionate about connecting people with experiences 
+            that spark wonder and create lasting memories.
+        </p>
+
+        <h2>Meet the Team</h2>
+        <div class="team">
+            <div class="team-member">
+                <h3>Jane Doe</h3>
+                <p>CEO & Founder</p>
+            </div>
+            <div class="team-member">
+                <h3>John Smith</h3>
+                <p>Lead Travel Consultant</p>
+            </div>
+            <div class="team-member">
+                <h3>Emily Johnson</h3>
+                <p>Marketing Manager</p>
+            </div>
+            <div class="team-member">
+                <h3>Michael Lee</h3>
+                <p>Content Creator</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
