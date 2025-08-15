@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Image Zoom In/Out Loop</title>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* vertical center */
+    align-items: center;     /* horizontal center */
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  #myImage {
+    width: 300px;
+    transition: transform 0.5s ease;
+    margin-bottom: 20px;
+    display: none; /* hidden initially */
+  }
+  .word {
+    margin: 0 0 20px 0;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<img id="myImage" src="./skull.jpg" alt="Sample Image" />
+<div style="display: flex; align-items: center; gap: 10px;">
+  <h1 class="word" style="margin: 0;">print</h1>
+  <button id="zoomBtn">Hello World</button>
+</div>
+
+
+<script>
+  const minScale = 0.4;  // smaller zoom (60%)
+  const maxScale = 2.0;  // bigger zoom (250%)
+  
+  const img = document.getElementById('myImage');
+  const btn = document.getElementById('zoomBtn');
+  const clickMe = document.getElementById('alert')
+  
+  btn.onclick = () => {
+    alert('fuck you')
+    img.style.display = 'block'; // show image on button click
+    
+    let iterations = 0;
+    const maxIterations = 10;
+    let zoomedIn = false;
+
+    const intervalId = setInterval(() => {
+      if (zoomedIn) {
+        img.style.transform = `scale(${minScale})`;  // zoom out (smaller)
+      } else {
+        img.style.transform = `scale(${maxScale})`;  // zoom in (bigger)
+      }
+      zoomedIn = !zoomedIn;
+      iterations++;
+
+      if (iterations >= maxIterations * 2) {
+        clearInterval(intervalId);
+        img.style.transform = `scale(1)`;  // reset scale
+      }
+    }, 500);
+
+    // Disable button to prevent multiple clicks while animating (optional)
+    btn.disabled = true;
+    setTimeout(() => btn.disabled = false, maxIterations * 2 * 500);
+  };
+</script>
+
+</body>
+</html>

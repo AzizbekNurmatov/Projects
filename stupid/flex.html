@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Flexbox Variations Demo</title>
+<style>
+  body {
+    background: white;
+    margin: 20px;
+    font-family: Arial, sans-serif;
+  }
+  h2 {
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+  .flex-container {
+    border: 2px solid #333;
+    padding: 10px;
+    margin-bottom: 30px;
+    gap: 10px;
+  }
+  .box {
+    flex: 1;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    padding: 30px 0;
+  }
+  .box1 { background-color: #f44336; }  /* red */
+  .box2 { background-color: #2196F3; }  /* blue */
+  .box3 { background-color: #4CAF50; }  /* green */
+  
+  /* Variation 1: Default row layout */
+  .flex-row {
+    display: flex;
+    flex-direction: row; /* default */
+  }
+
+  /* Variation 2: Column layout */
+  .flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Variation 3: Row with wrap */
+  .flex-row-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .flex-row-wrap .box {
+    flex: 0 0 45%; /* fixed width boxes that wrap */
+  }
+
+  /* Variation 4: Center items horizontally and vertically */
+  .flex-center {
+    display: flex;
+    justify-content: center; /* horizontal center */
+    align-items: center;     /* vertical center */
+    height: 120px;
+  }
+  .flex-center .box {
+    flex: none; /* no grow/shrink, fixed width */
+    width: 80px;
+    padding: 20px 0;
+  }
+
+  /* Variation 5: Space between items */
+  .flex-space-between {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Variation 6: Align items to flex-end */
+  .flex-align-end {
+    display: flex;
+    align-items: flex-end;
+    height: 120px;
+  }
+  .flex-align-end .box {
+    flex: none;
+    width: 80px;
+    padding: 20px 0;
+  }
+</style>
+</head>
+<body>
+
+<h2>1. Default row layout (flex-direction: row)</h2>
+<div class="flex-container flex-row">
+  <div class="box box1">Box 1</div>
+  <div class="box box2">Box 2</div>
+  <div class="box box3">Box 3</div>
+</div>
+
+<h2>2. Column layout (flex-direction: column)</h2>
+<div class="flex-container flex-column" style="height: 300px;">
+  <div class="box box1">Box 1</div>
+  <div class="box box2">Box 2</div>
+  <div class="box box3">Box 3</div>
+</div>
+
+<h2>3. Row with wrapping (flex-wrap: wrap)</h2>
+<div class="flex-container flex-row-wrap">
+  <div class="box box1">Box 1</div>
+  <div class="box box2">Box 2</div>
+  <div class="box box3">Box 3</div>
+  <div class="box box1">Box 4</div>
+  <div class="box box2">Box 5</div>
+  <div class="box box3">Box 6</div>
+</div>
+
+<h2>4. Center items horizontally and vertically</h2>
+<div class="flex-container flex-center">
+  <div class="box box1">Box 1</div>
+  <div class="box box2">Box 2</div>
+  <div class="box box3">Box 3</div>
+</div>
+
+<h2>5. Space between items</h2>
+<div class="flex-container flex-space-between">
+  <div class="box box1" style="width: 80px;">Box 1</div>
+  <div class="box box2" style="width: 80px;">Box 2</div>
+  <div class="box box3" style="width: 80px;">Box 3</div>
+</div>
+
+<h2>6. Align items to the bottom (flex-end)</h2>
+<div class="flex-container flex-align-end">
+  <div class="box box1" style="height: 40px;">Box 1</div>
+  <div class="box box2" style="height: 80px;">Box 2</div>
+  <div class="box box3" style="height: 60px;">Box 3</div>
+</div>
+
+</body>
+</html>
