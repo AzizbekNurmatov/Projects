@@ -1,5 +1,85 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
+.main-header {
+  background: #ffffff;
+  border-bottom: 1px solid #E5E7EB;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #3B82F6;
+}
+
+.main-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  padding-bottom: 0.2rem;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: #3B82F6;
+  border-bottom: 2px solid #3B82F6;
+}
+
+.nav-toggle {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .main-nav ul {
+    display: none;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: white;
+    position: absolute;
+    top: 100%;
+    right: 2rem;
+    width: 200px;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  }
+
+  .main-nav.open ul {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: block;
+    color: #111827;
+  }
+}
+
 body {
   font-family: 'Inter', sans-serif;
   background-color: #F9FAFB;
@@ -189,4 +269,48 @@ body {
 .business-card button:hover {
   background-color: #2563eb;
   box-shadow: 0 8px 20px rgba(37, 99, 235, 0.6);
+}
+.main-footer {
+  background: #ffffff;
+  border-top: 1px solid #E5E7EB;
+  padding: 2rem 1rem;
+  margin-top: 3rem;
+  text-align: center;
+  color: #6B7280; /* Gray-500 */
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #3B82F6;
+  margin-bottom: 1rem;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.footer-nav a {
+  text-decoration: none;
+  color: #374151; /* Gray-700 */
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.footer-nav a:hover {
+  color: #3B82F6;
+}
+
+.footer-copy {
+  font-size: 0.9rem;
+  color: #9CA3AF; /* Gray-400 */
 }
