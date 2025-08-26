@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServiceRate - Your Local Service Universe</title>
+    <link rel="stylesheet" href="./quickRate.css">
+
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <header>
+        <nav class="container">
+            <div class="logo">ServiceRate_</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('features')">Features</a></li>
+                <li><a href="#" onclick="showPage('about')">About</a></li>
+                <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+            </ul>
+            <a href="#" class="cta-nav" onclick="showPage('search')">Find Services</a>
+        </nav>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home-page">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Your Local Service Universe</h1>
+                        <p class="hero-subtitle">Discover trusted service providers with radical transparency. Real ratings for speed, cost & effectiveness from your actual neighbors.</p>
+                        <div class="hero-actions">
+                            <a href="#" class="btn-primary" onclick="showPage('search')">
+                                🚀 Explore Services
+                            </a>
+                            <a href="#" class="btn-secondary">
+                                💼 List Your Business
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="floating-card">
+                            <div class="card-header">
+                                <div class="service-icon" style="background: linear-gradient(135deg, #06d6a0, #6366f1);">🔧</div>
+                                <div>
+                                    <div style="font-weight: 600;">Mike's Repairs</div>
+                                    <div class="rating-stars">⭐⭐⭐⭐⭐ 4.9</div>
+                                </div>
+                            </div>
+                            <div class="service-stats">
+                                <div><strong>⚡ Speed:</strong> 9.2</div>
+                                <div><strong>💰 Cost:</strong> 8.8</div>
+                                <div><strong>✨ Quality:</strong> 9.5</div>
+                            </div>
+                        </div>
+                        <div class="floating-card">
+                            <div class="card-header">
+                                <div class="service-icon" style="background: linear-gradient(135deg, #8b5cf6, #06d6a0);">🏠</div>
+                                <div>
+                                    <div style="font-weight: 600;">Clean Squad</div>
+                                    <div class="rating-stars">⭐⭐⭐⭐⭐ 4.8</div>
+                                </div>
+                            </div>
+                            <div class="service-stats">
+                                <div><strong>⚡ Speed:</strong> 9.5</div>
+                                <div><strong>💰 Cost:</strong> 9.1</div>
+                                <div><strong>✨ Quality:</strong> 9.3</div>
+                            </div>
+                        </div>
+                        <div class="floating-card">
+                            <div class="card-header">
+                                <div class="service-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">🚗</div>
+                                <div>
+                                    <div style="font-weight: 600;">Quick Fix Auto</div>
+                                    <div class="rating-stars">⭐⭐⭐⭐⭐ 4.7</div>
+                                </div>
+                            </div>
+                            <div class="service-stats">
+                                <div><strong>⚡ Speed:</strong> 8.9</div>
+                                <div><strong>💰 Cost:</strong> 9.0</div>
+                                <div><strong>✨ Quality:</strong> 9.2</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <div class="features-header">
+                    <h2>Why We're Different</h2>
+                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.2rem;">No more guessing games. Real transparency for real people.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Radical Transparency</h3>
+                        <p>Speed, Cost, Effectiveness ratings from actual customers. No fluff, no fake reviews, just brutal honesty.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Hyper-Local Focus</h3>
+                        <p>Find hidden gems in your exact neighborhood. Small businesses that big platforms ignore.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <h3>Instant Quotes</h3>
+                        <p>Get quotes from multiple providers in minutes. Compare and decide without the runaround.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Trust by Design</h3>
+                        <p>Verified reviews, real photos, and transparent pricing. Know exactly what you're getting.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <h3>Lightning Fast</h3>
+                        <p>Book services in under 60 seconds. No forms, no hassle, just results.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💎</div>
+                        <h3>Support Local</h3>
+                        <p>Empower neighborhood businesses. Your money stays in your community.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Ready to Find Amazing Services?</h2>
+                    <p>Join thousands who've discovered their go-to local providers</p>
+                    <div class="hero-actions">
+                        <a href="#" class="btn-primary" onclick="showPage('search')">
+                            🚀 Start Exploring
+                        </a>
+                        <a href="#" class="btn-secondary">
+                            💼 List Your Business
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Find Services Page -->
+    <div id="search-page" class="hidden">
+        <section class="search-page">
+            <div class="search-container">
+                <div class="search-header">
+                    <h1>Find Your Perfect Service</h1>
+                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.2rem;">Tell us what you need, and we'll show you the best local options</p>
+                </div>
+
+                <div class="search-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="location">📍 Your Location</label>
+                            <input type="text" id="location" class="form-control" placeholder="Enter your address or ZIP">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">🛠️ Service Type</label>
+                            <select id="service" class="form-control">
+                                <option value="">Select a service...</option>
+                                <option value="plumbing">🔧 Plumbing</option>
+                                <option value="cleaning">🏠 House Cleaning</option>
+                                <option value="electrical">⚡ Electrical</option>
+                                <option value="auto">🚗 Auto Repair</option>
+                                <option value="landscaping">🌱 Landscaping</option>
+                                <option value="hvac">❄️ HVAC</option>
+                                <option value="handyman">🔨 Handyman</option>
+                                <option value="pest">🐜 Pest Control</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="urgency">⏰ When do you need it?</label>
+                            <select id="urgency" class="form-control">
+                                <option value="">Select timeframe...</option>
+                                <option value="asap">🚨 ASAP (Emergency)</option>
+                                <option value="today">📅 Today</option>
+                                <option value="week">📆 This Week</option>
+                                <option value="month">🗓️ This Month</option>
+                                <option value="flexible">🤷 I'm Flexible</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>📏 Search Radius</label>
+                        <div class="radius-selector">
+                            <div class="radius-option active" onclick="selectRadius(this, '1')">1 mile</div>
+                            <div class="radius-option" onclick="selectRadius(this, '5')">5 miles</div>
+                            <div class="radius-option" onclick="selectRadius(this, '10')">10 miles</div>
+                            <div class="radius-option" onclick="selectRadius(this, '25')">25 miles</div>
+                            <div class="radius-option" onclick="selectRadius(this, '50')">50+ miles</div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn-primary" onclick="searchServices()" style="font-size: 1.2rem; padding: 1.2rem 3rem;">
+                            🔍 Find Services
+                        </button>
+                    </div>
+                </div>
+
+                <div id="search-results" class="search-results">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="./quickRate.js">
+        
+    </script>
+</body>
+</html>
