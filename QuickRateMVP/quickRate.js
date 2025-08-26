@@ -218,11 +218,9 @@ let currentPage = 'home';
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
-                header.style.background = 'rgba(15, 15, 35, 0.95)';
-                header.style.borderBottom = '1px solid rgba(6, 214, 160, 0.3)';
+                header.style.background = 'rgba(15, 15, 35, 0.9)';
             } else {
-                header.style.background = 'rgba(255, 255, 255, 0.1)';
-                header.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+                header.style.background = 'rgba(15, 15, 35, 0.7)';
             }
         });
 
@@ -250,9 +248,9 @@ let currentPage = 'home';
         // Form validation and UX improvements
         document.getElementById('location').addEventListener('input', function(e) {
             if (e.target.value.length > 2) {
-                e.target.style.borderColor = 'var(--accent)';
+                e.target.style.boxShadow = '0 0 0 2px rgba(6, 214, 160, 0.3)';
             } else {
-                e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                e.target.style.boxShadow = 'none';
             }
         });
 
