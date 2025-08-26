@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentimentTrader - AI Trading Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ff88, #0066ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ticker-selector {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .ticker-input {
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .ticker-input:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .analyze-btn {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #00ff88, #0066ff);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff88, transparent);
+            transition: left 0.5s;
+        }
+
+        .metric-card:hover::before {
+            left: 100%;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 136, 0.3);
+        }
+
+        .metric-title {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .metric-change {
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .positive { color: #00ff88; }
+        .negative { color: #ff0066; }
+        .neutral { color: #ffa500; }
+
+        .sentiment-gauge {
+            text-align: center;
+            position: relative;
+        }
+
+        .gauge-container {
+            width: 150px;
+            height: 75px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .gauge-bg {
+            width: 150px;
+            height: 75px;
+            border: 8px solid #333;
+            border-bottom: none;
+            border-radius: 150px 150px 0 0;
+            position: relative;
+        }
+
+        .gauge-fill {
+            position: absolute;
+            width: 134px;
+            height: 67px;
+            border: 8px solid;
+            border-bottom: none;
+            border-radius: 134px 134px 0 0;
+            top: -8px;
+            left: -8px;
+            transition: all 1s ease;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(20px);
+            height: 400px;
+        }
+
+        .sentiment-feed {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(20px);
+            height: 400px;
+            overflow-y: auto;
+        }
+
+        .feed-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #00ff88;
+        }
+
+        .sentiment-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .sentiment-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .sentiment-source {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sentiment-text {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .sentiment-score {
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .trading-signals {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(20px);
+        }
+
+        .signal-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid;
+        }
+
+        .signal-buy { border-left-color: #00ff88; }
+        .signal-sell { border-left-color: #ff0066; }
+        .signal-hold { border-left-color: #ffa500; }
+
+        .signal-action {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .signal-confidence {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #00ff88;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #333;
+            border-top: 3px solid #00ff88;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            .header {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 136, 0.5);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 136, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">SentimentTrader</div>
+            <div class="ticker-selector">
+                <input type="text" class="ticker-input" id="tickerInput" placeholder="AAPL" value="AAPL">
+                <button class="analyze-btn" onclick="analyzeStock()">Analyze</button>
+            </div>
+        </header>
+
+        <div class="loading" id="loadingIndicator">
+            <div class="spinner"></div>
+            <div>Analyzing sentiment and fetching market data...</div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="metric-card">
+                <div class="metric-title">Current Price</div>
+                <div class="metric-value" id="currentPrice">$---</div>
+                <div class="metric-change" id="priceChange">
+                    <span>---</span>
+                </div>
+            </div>
+
+            <div class="metric-card sentiment-gauge">
+                <div class="metric-title">Sentiment Score</div>
+                <div class="gauge-container">
+                    <div class="gauge-bg"></div>
+                    <div class="gauge-fill" id="sentimentGauge"></div>
+                </div>
+                <div class="metric-value" id="sentimentScore">--</div>
+                <div class="metric-change" id="sentimentLabel">Neutral</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">AI Confidence</div>
+                <div class="metric-value" id="confidence">--%</div>
+                <div class="metric-change" id="confidenceLabel">
+                    <span>Model Accuracy</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="chart-container">
+                <canvas id="priceChart"></canvas>
+            </div>
+
+            <div class="sentiment-feed">
+                <div class="feed-title">📊 Real-time Sentiment Feed</div>
+                <div id="sentimentFeedContent">
+                    <div class="sentiment-item" style="border-left-color: #00ff88;">
+                        <div class="sentiment-source">
+                            <span>🐦 Twitter</span>
+                            <span>2 min ago</span>
+                        </div>
+                        <div class="sentiment-text">Select a ticker to see live sentiment analysis</div>
+                        <div class="sentiment-score">
+                            <span>Score: --</span>
+                            <span>Confidence: --%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="trading-signals">
+            <div class="feed-title">🤖 AI Trading Signals</div>
+            <div id="tradingSignalsContent">
+                <div class="signal-item signal-hold">
+                    <div>
+                        <div class="signal-action">HOLD</div>
+                        <div style="font-size: 0.8rem; color: #888;">Waiting for clear sentiment direction</div>
+                    </div>
+                    <div class="signal-confidence">Confidence: --%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let priceChart;
+        let currentTicker = 'AAPL';
+
+        // Mock sentiment data generator
+        function generateMockSentiment(ticker) {
+            const sentiments = [
+                { source: '🐦 Twitter', text: `${ticker} earnings beat expectations! Great quarter ahead 🚀`, score: 0.85, platform: 'Twitter' },
+                { source: '📰 Reddit r/stocks', text: `Thinking of loading up on more ${ticker}. The fundamentals look solid`, score: 0.72, platform: 'Reddit' },
+                { source: '📈 StockTwits', text: `${ticker} breaking resistance levels. Bulls in control! 📈💪`, score: 0.78, platform: 'StockTwits' },
+                { source: '📰 Reddit r/investing', text: `Concerned about ${ticker}'s valuation at these levels. Might be overextended`, score: -0.45, platform: 'Reddit' },
+                { source: '🐦 Twitter', text: `${ticker} partnership announcement could be a game changer for the industry`, score: 0.68, platform: 'Twitter' },
+                { source: '📈 StockTwits', text: `Taking profits on ${ticker} here. Looks like it might pull back soon`, score: -0.32, platform: 'StockTwits' },
+                { source: '📰 Reddit r/SecurityAnalysis', text: `${ticker}'s moat is getting stronger. Long-term hold for sure`, score: 0.91, platform: 'Reddit' },
+                { source: '🐦 Twitter', text: `${ticker} CEO selling shares again... not a good look for confidence`, score: -0.58, platform: 'Twitter' }
+            ];
+            
+            return sentiments.map(sentiment => ({
+                ...sentiment,
+                timestamp: new Date(Date.now() - Math.random() * 3600000),
+                confidence: Math.random() * 0.3 + 0.7
+            })).sort((a, b) => b.timestamp - a.timestamp);
+        }
+
+        // Mock price data generator with corresponding sentiment
+        function generateMockPriceData() {
+            const data = [];
+            const basePrice = 150 + Math.random() * 50;
+            let price = basePrice;
+            
+            for (let i = 0; i < 30; i++) {
+                const sentimentInfluence = (Math.random() - 0.5) * 2;
+                const priceChange = sentimentInfluence * 3 + (Math.random() - 0.5) * 2;
+                price += priceChange;
+                price = Math.max(price, 10);
+                
+                data.push({
+                    time: new Date(Date.now() - (29 - i) * 24 * 60 * 60 * 1000),
+                    price: price,
+                    sentiment: sentimentInfluence * 0.8
+                });
+            }
+            return data;
+        }
+
+        function updateSentimentGauge(score) {
+            const gauge = document.getElementById('sentimentGauge');
+            const scoreElement = document.getElementById('sentimentScore');
+            const labelElement = document.getElementById('sentimentLabel');
+            
+            const angle = ((score + 1) / 2) * 180;
+            
+            let color, label;
+            if (score > 0.2) {
+                color = '#00ff88';
+                label = 'Bullish';
+            } else if (score < -0.2) {
+                color = '#ff0066';
+                label = 'Bearish';
+            } else {
+                color = '#ffa500';
+                label = 'Neutral';
+            }
+            
+            gauge.style.borderColor = color;
+            gauge.style.transform = `rotate(${angle - 90}deg)`;
+            
+            scoreElement.textContent = score.toFixed(2);
+            scoreElement.className = `metric-value ${score > 0.2 ? 'positive' : score < -0.2 ? 'negative' : 'neutral'}`;
+            labelElement.innerHTML = `<span>${label}</span>`;
+            labelElement.className = `metric-change ${score > 0.2 ? 'positive' : score < -0.2 ? 'negative' : 'neutral'}`;
+        }
+
+        function updateSentimentFeed(sentiments) {
+            const feedContent = document.getElementById('sentimentFeedContent');
+            feedContent.innerHTML = '';
+            
+            sentiments.slice(0, 6).forEach(sentiment => {
+                const timeAgo = Math.floor((Date.now() - sentiment.timestamp) / (1000 * 60));
+                const borderColor = sentiment.score > 0.2 ? '#00ff88' : sentiment.score < -0.2 ? '#ff0066' : '#ffa500';
+                
+                const item = document.createElement('div');
+                item.className = 'sentiment-item';
+                item.style.borderLeftColor = borderColor;
+                item.innerHTML = `
+                    <div class="sentiment-source">
+                        <span>${sentiment.source}</span>
+                        <span>${timeAgo}m ago</span>
+                    </div>
+                    <div class="sentiment-text">${sentiment.text}</div>
+                    <div class="sentiment-score">
+                        <span>Score: ${sentiment.score.toFixed(2)}</span>
+                        <span>Confidence: ${(sentiment.confidence * 100).toFixed(0)}%</span>
+                    </div>
+                `;
+                feedContent.appendChild(item);
+            });
+        }
+
+        function updateTradingSignals(avgSentiment, confidence) {
+            const signalsContent = document.getElementById('tradingSignalsContent');
+            signalsContent.innerHTML = '';
+            
+            let signal, signalClass, description;
+            
+            if (avgSentiment > 0.3 && confidence > 0.75) {
+                signal = 'STRONG BUY';
+                signalClass = 'signal-buy';
+                description = 'High positive sentiment with strong confidence';
+            } else if (avgSentiment > 0.1) {
+                signal = 'BUY';
+                signalClass = 'signal-buy';
+                description = 'Positive sentiment detected across platforms';
+            } else if (avgSentiment < -0.3 && confidence > 0.75) {
+                signal = 'STRONG SELL';
+                signalClass = 'signal-sell';
+                description = 'High negative sentiment with strong confidence';
+            } else if (avgSentiment < -0.1) {
+                signal = 'SELL';
+                signalClass = 'signal-sell';
+                description = 'Negative sentiment detected across platforms';
+            } else {
+                signal = 'HOLD';
+                signalClass = 'signal-hold';
+                description = 'Mixed or neutral sentiment, wait for clearer signal';
+            }
+            
+            const signalElement = document.createElement('div');
+            signalElement.className = `signal-item ${signalClass}`;
+            signalElement.innerHTML = `
+                <div>
+                    <div class="signal-action">${signal}</div>
+                    <div style="font-size: 0.8rem; color: #888;">${description}</div>
+                </div>
+                <div class="signal-confidence">Confidence: ${(confidence * 100).toFixed(0)}%</div>
+            `;
+            signalsContent.appendChild(signalElement);
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            priceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'Stock Price ($)',
+                            data: [],
+                            borderColor: '#00ff88',
+                            backgroundColor: 'rgba(0, 255, 136, 0.15)',
+                            tension: 0.4,
+                            fill: 'origin',
+                            yAxisID: 'y',
+                            borderWidth: 3,
+                            pointRadius: 0,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Sentiment Score',
+                            data: [],
+                            borderColor: '#ff6b6b',
+                            backgroundColor: 'rgba(255, 107, 107, 0.15)',
+                            tension: 0.4,
+                            fill: 'origin',
+                            yAxisID: 'y1',
+                            borderWidth: 3,
+                            pointRadius: 0,
+                            pointHoverRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ffffff',
+                                usePointStyle: true,
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            borderColor: '#00ff88',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { 
+                                color: '#888',
+                                maxTicksLimit: 10
+                            },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            ticks: { 
+                                color: '#00ff88',
+                                callback: function(value) {
+                                    return '$' + value.toFixed(0);
+                                }
+                            },
+                            grid: { color: 'rgba(0, 255, 136, 0.2)' },
+                            title: {
+                                display: true,
+                                text: 'Stock Price ($)',
+                                color: '#00ff88'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            ticks: { 
+                                color: '#ff6b6b',
+                                min: -1,
+                                max: 1,
+                                stepSize: 0.5,
+                                callback: function(value) {
+                                    return value.toFixed(1);
+                                }
+                            },
+                            grid: {
+                                drawOnChartArea: false,
+                                color: 'rgba(255, 107, 107, 0.2)'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Sentiment Score',
+                                color: '#ff6b6b'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChart(priceData) {
+            const labels = priceData.map(d => d.time.toLocaleDateString());
+            const prices = priceData.map(d => d.price);
+            const sentiments = priceData.map(d => d.sentiment);
+            
+            priceChart.data.labels = labels;
+            priceChart.data.datasets[0].data = prices;
+            priceChart.data.datasets[1].data = sentiments;
+            priceChart.update('none');
+        }
+
+        async function analyzeStock() {
+            const ticker = document.getElementById('tickerInput').value.trim().toUpperCase();
+            if (!ticker) return;
+            
+            currentTicker = ticker;
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            loadingIndicator.style.display = 'block';
+            
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            const sentiments = generateMockSentiment(ticker);
+            const priceData = generateMockPriceData();
+            const avgSentiment = sentiments.reduce((sum, s) => sum + s.score, 0) / sentiments.length;
+            const avgConfidence = sentiments.reduce((sum, s) => sum + s.confidence, 0) / sentiments.length;
+            
+            const currentPrice = priceData[priceData.length - 1].price;
+            const previousPrice = priceData[priceData.length - 2].price;
+            const priceChange = currentPrice - previousPrice;
+            const priceChangePercent = (priceChange / previousPrice) * 100;
+            
+            document.getElementById('currentPrice').textContent = `$${currentPrice.toFixed(2)}`;
+            document.getElementById('priceChange').innerHTML = `
+                <span class="${priceChange >= 0 ? 'positive' : 'negative'}">
+                    ${priceChange >= 0 ? '↗' : '↘'} $${Math.abs(priceChange).toFixed(2)} (${priceChangePercent.toFixed(2)}%)
+                </span>
+            `;
+            
+            document.getElementById('confidence').textContent = `${(avgConfidence * 100).toFixed(0)}%`;
+            document.getElementById('confidenceLabel').innerHTML = '<span>Model Accuracy</span>';
+            
+            updateSentimentGauge(avgSentiment);
+            updateSentimentFeed(sentiments);
+            updateTradingSignals(avgSentiment, avgConfidence);
+            updateChart(priceData);
+            
+            loadingIndicator.style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initChart();
+            analyzeStock();
+            
+            setInterval(analyzeStock, 30000);
+            
+            document.getElementById('tickerInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    analyzeStock();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
