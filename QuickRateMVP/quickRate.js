@@ -11,6 +11,10 @@ let currentPage = 'home';
             if (detailsPage) {
                 detailsPage.classList.add('hidden');
             }
+            const contactPage = document.getElementById('contact-page');
+            if (contactPage) {
+                contactPage.classList.add('hidden');
+            }
             
             // Show selected page
             if (page === 'search') {
@@ -21,11 +25,47 @@ let currentPage = 'home';
                     detailsPage.classList.remove('hidden');
                 }
                 currentPage = 'details';
+            } else if (page === 'contact') {
+                if (contactPage) {
+                    contactPage.classList.remove('hidden');
+                }
+                currentPage = 'contact';
             } else {
                 document.getElementById('home-page').classList.remove('hidden');
                 currentPage = 'home';
             }
         }
+
+        // Contact form (mailto) handler
+        (function setupContactForm() {
+            const form = document.getElementById('contact-form');
+            const fallback = document.getElementById('contact-mailto-fallback');
+            if (!form) return;
+            const founderEmail = 'youremail@example.com'; // TODO: replace with your address
+
+            function buildMailto() {
+                const name = document.getElementById('contact-name')?.value || '';
+                const email = document.getElementById('contact-email')?.value || '';
+                const subject = document.getElementById('contact-subject')?.value || 'ServiceRate Inquiry';
+                const message = document.getElementById('contact-message')?.value || '';
+                const body = `From: ${name} <${email}>%0D%0A%0D%0A${encodeURIComponent(message)}`;
+                return `mailto:${founderEmail}?subject=${encodeURIComponent(subject)}&body=${body}`;
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const href = buildMailto();
+                window.location.href = href;
+            });
+
+            if (fallback) {
+                fallback.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = buildMailto();
+                    window.location.href = href;
+                });
+            }
+        })();
 
         // Radius selection
         function selectRadius(element, radius) {
