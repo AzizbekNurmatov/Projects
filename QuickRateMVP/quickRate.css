@@ -531,6 +531,26 @@
             background: rgba(255, 255, 255, 0.15);
         }
 
+        /* Improve visibility of select dropdowns and options on dark theme */
+        select.form-control {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.1);
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .form-control option {
+            background-color: var(--dark);
+            color: #ffffff;
+        }
+
+        .form-control option:checked,
+        .form-control option:hover {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+
         .radius-selector {
             display: flex;
             gap: 1rem;
