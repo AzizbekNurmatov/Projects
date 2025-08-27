@@ -214,8 +214,30 @@
         </section>
     </div>
 
+    <!-- Business Details Page -->
+    <div id="details-page" class="hidden">
+        <section class="search-page">
+            <div class="search-container">
+                <div class="search-header">
+                    <h1 id="details-title">Business Services</h1>
+                    <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.2rem;">Explore services, pricing, and availability</p>
+                </div>
+
+                <div style="margin-bottom: 2rem; display: flex; gap: 1rem;">
+                    <button class="btn-secondary" onclick="showPage('search')">⬅ Back to results</button>
+                    <button class="btn-primary" id="details-cta" style="display:none;">💬 Get Quote</button>
+                </div>
+
+                <div id="details-content" class="search-results">
+                    <!-- Details populated dynamically -->
+                </div>
+            </div>
+        </section>
+    </div>
+
     <script src="./quickRate.js">
         
     </script>
+    
 </body>
 </html>

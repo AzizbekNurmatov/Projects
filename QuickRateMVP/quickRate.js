@@ -1,16 +1,26 @@
 let currentPage = 'home';
         let selectedRadius = '1';
+        let selectedServiceIndex = null;
 
         // Page navigation
         function showPage(page) {
             // Hide all pages
             document.getElementById('home-page').classList.add('hidden');
             document.getElementById('search-page').classList.add('hidden');
+            const detailsPage = document.getElementById('details-page');
+            if (detailsPage) {
+                detailsPage.classList.add('hidden');
+            }
             
             // Show selected page
             if (page === 'search') {
                 document.getElementById('search-page').classList.remove('hidden');
                 currentPage = 'search';
+            } else if (page === 'details') {
+                if (detailsPage) {
+                    detailsPage.classList.remove('hidden');
+                }
+                currentPage = 'details';
             } else {
                 document.getElementById('home-page').classList.remove('hidden');
                 currentPage = 'home';
@@ -36,7 +46,12 @@ let currentPage = 'home';
                 quality: 9.5,
                 description: "24/7 emergency plumbing. Fixed my burst pipe in 30 minutes!",
                 price: "$80-120/hr",
-                reviews: 127
+                reviews: 127,
+                services: [
+                    { title: 'Emergency Leak Repair', price: '$120 flat', eta: '30-90 min', blurb: 'Rapid response for burst pipes and major leaks.' },
+                    { title: 'Drain Cleaning', price: '$90+', eta: 'Same day', blurb: 'Clears clogs with hydro-jet or snake.' },
+                    { title: 'Water Heater Repair', price: '$150+', eta: '1-2 days', blurb: 'Diagnostics and part replacement for most brands.' }
+                ]
             },
             {
                 name: "Clean Squad Pro",
@@ -48,7 +63,12 @@ let currentPage = 'home';
                 quality: 9.3,
                 description: "Eco-friendly deep cleaning. They're magicians!",
                 price: "$25-35/hr",
-                reviews: 89
+                reviews: 89,
+                services: [
+                    { title: 'Standard Home Cleaning', price: '$30/hr', eta: '2-4 hrs', blurb: 'Kitchen, bathrooms, floors, and surfaces.' },
+                    { title: 'Deep Cleaning', price: '$35/hr', eta: '4-6 hrs', blurb: 'Inside appliances, baseboards, detailed attention.' },
+                    { title: 'Move-in/Move-out', price: '$40/hr', eta: 'Half-day', blurb: 'Full reset ready for handover.' }
+                ]
             },
             {
                 name: "QuickFix Auto",
@@ -60,7 +80,12 @@ let currentPage = 'home';
                 quality: 9.2,
                 description: "Honest pricing, no upsells. Fixed my car same day.",
                 price: "$95-150/hr",
-                reviews: 156
+                reviews: 156,
+                services: [
+                    { title: 'Oil Change', price: '$65', eta: '45 min', blurb: 'Full synthetic with filter.' },
+                    { title: 'Brake Pad Replacement', price: '$220 axle', eta: '2 hrs', blurb: 'Includes parts and labor.' },
+                    { title: 'Check Engine Diagnostics', price: '$95', eta: '1 hr', blurb: 'OBD-II scan and report.' }
+                ]
             },
             {
                 name: "Spark Masters",
@@ -72,7 +97,12 @@ let currentPage = 'home';
                 quality: 9.8,
                 description: "Licensed electricians. Rewired my house perfectly.",
                 price: "$120-180/hr",
-                reviews: 203
+                reviews: 203,
+                services: [
+                    { title: 'Outlet/Switch Install', price: '$120', eta: '1-2 hrs', blurb: 'Add or replace outlets and switches.' },
+                    { title: 'Lighting Upgrade', price: '$180+', eta: '2-4 hrs', blurb: 'Recessed, pendants, and smart lighting.' },
+                    { title: 'Panel Upgrade', price: '$1,800+', eta: '1-2 days', blurb: 'Modernize and increase capacity.' }
+                ]
             },
             {
                 name: "Green Thumb Co",
@@ -84,7 +114,12 @@ let currentPage = 'home';
                 quality: 9.1,
                 description: "Transformed my backyard into paradise!",
                 price: "$50-75/hr",
-                reviews: 74
+                reviews: 74,
+                services: [
+                    { title: 'Lawn Mowing', price: '$45', eta: 'Weekly', blurb: 'Trim, edge, and blow off.' },
+                    { title: 'Mulch & Beds', price: '$200+', eta: '1 day', blurb: 'Refresh beds and install seasonal plants.' },
+                    { title: 'Hedge Trimming', price: '$90+', eta: '2-3 hrs', blurb: 'Shape and clean up shrubs.' }
+                ]
             },
             {
                 name: "Cool Breeze HVAC",
@@ -96,7 +131,12 @@ let currentPage = 'home';
                 quality: 9.4,
                 description: "Installed new AC unit. Professional and clean work.",
                 price: "$110-160/hr",
-                reviews: 112
+                reviews: 112,
+                services: [
+                    { title: 'AC Tune-Up', price: '$129', eta: '90 min', blurb: '21-point inspection and cleaning.' },
+                    { title: 'Thermostat Install', price: '$149', eta: '1-2 hrs', blurb: 'Smart thermostat setup.' },
+                    { title: 'Emergency No-Cool', price: '$199+', eta: 'Same day', blurb: 'Priority diagnostics and fix.' }
+                ]
             }
         ];
 
@@ -162,7 +202,7 @@ let currentPage = 'home';
                         Showing results within ${selectedRadius} mile${selectedRadius !== '1' ? 's' : ''} of your location
                     </p>
                 </div>
-                ${services.map(service => `
+                ${services.map((service, idx) => `
                     <div class="service-card">
                         <div class="service-header">
                             <div class="service-avatar">
@@ -204,14 +244,71 @@ let currentPage = 'home';
                                 <button class="btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
                                     💬 Get Quote
                                 </button>
-                                <button class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
-                                    📅 Book Now
+                                <button class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;" onclick="openDetails(${idx})">
+                                    📅 Check Services
                                 </button>
                             </div>
                         </div>
                     </div>
                 `).join('')}
             `;
+        }
+
+        function openDetails(index) {
+            selectedServiceIndex = index;
+            const svc = sampleServices[index];
+            const titleEl = document.getElementById('details-title');
+            const ctaEl = document.getElementById('details-cta');
+            const contentEl = document.getElementById('details-content');
+
+            if (!svc || !titleEl || !contentEl) {
+                return;
+            }
+
+            titleEl.textContent = svc.name;
+            if (ctaEl) {
+                ctaEl.style.display = 'inline-flex';
+            }
+
+            const servicesList = (svc.services && svc.services.length ? svc.services : [
+                { title: 'General Service', price: svc.price || '$—', eta: 'Varies', blurb: 'Contact for details and availability.' }
+            ]);
+
+            contentEl.innerHTML = `
+                <div class="service-card" style="grid-column: 1/-1;">
+                    <div class="service-header">
+                        <div class="service-avatar">${svc.icon}</div>
+                        <div class="service-info">
+                            <h3>${svc.name}</h3>
+                            <div style="display:flex; align-items:center; gap:1rem;">
+                                <div class="rating-stars">⭐ ${svc.rating}</div>
+                                <div style="color: rgba(255,255,255,0.6);">${svc.reviews} reviews</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.85);">${svc.description}</p>
+                </div>
+                ${servicesList.map(item => `
+                    <div class="service-card">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem;">
+                            <div>
+                                <h3 style="margin-bottom:0.5rem;">${item.title}</h3>
+                                <div style="color: rgba(255,255,255,0.75);">${item.blurb}</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div style="color: var(--accent); font-weight:600;">${item.price}</div>
+                                <div style="color: rgba(255,255,255,0.6); font-size:0.9rem;">ETA: ${item.eta}</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:0.75rem; margin-top:1rem;">
+                            <button class="btn-secondary">Add to quote</button>
+                            <button class="btn-primary">Book inquiry</button>
+                        </div>
+                    </div>
+                `).join('')}
+            `;
+
+            showPage('details');
         }
 
         // Header scroll effect

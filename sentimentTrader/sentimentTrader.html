@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentimentTrader - AI Trading Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        
+    </style>
+    <link rel="stylesheet" href="./sentimentTrader.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">SentimentTrader_</div>
+            <div class="ticker-selector">
+                <input type="text" class="ticker-input" id="tickerInput" placeholder="AAPL" value="AAPL">
+                <button class="analyze-btn" onclick="analyzeStock()">Analyze</button>
+            </div>
+        </header>
+
+        <div class="loading" id="loadingIndicator">
+            <div class="spinner"></div>
+            <div>Analyzing sentiment and fetching market data...</div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="metric-card">
+                <div class="metric-title">Current Price</div>
+                <div class="metric-value" id="currentPrice">$---</div>
+                <div class="metric-change" id="priceChange">
+                    <span>---</span>
+                </div>
+            </div>
+
+            <div class="metric-card sentiment-gauge">
+                <div class="metric-title">Sentiment Score</div>
+                <div class="gauge-container">
+                    <div class="gauge-bg"></div>
+                    <div class="gauge-fill" id="sentimentGauge"></div>
+                </div>
+                <div class="metric-value" id="sentimentScore">--</div>
+                <div class="metric-change" id="sentimentLabel">Neutral</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">AI Confidence</div>
+                <div class="metric-value" id="confidence">--%</div>
+                <div class="metric-change" id="confidenceLabel">
+                    <span>Model Accuracy</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="chart-container">
+                <canvas id="priceChart"></canvas>
+            </div>
+
+            <div class="sentiment-feed">
+                <div class="feed-title">📊 Real-time Sentiment Feed</div>
+                <div id="sentimentFeedContent">
+                    <div class="sentiment-item" style="border-left-color: #00ff88;">
+                        <div class="sentiment-source">
+                            <span>🐦 Twitter</span>
+                            <span>2 min ago</span>
+                        </div>
+                        <div class="sentiment-text">Select a ticker to see live sentiment analysis</div>
+                        <div class="sentiment-score">
+                            <span>Score: --</span>
+                            <span>Confidence: --%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="trading-signals">
+            <div class="feed-title">🤖 AI Trading Signals</div>
+            <div id="tradingSignalsContent">
+                <div class="signal-item signal-hold">
+                    <div>
+                        <div class="signal-action">HOLD</div>
+                        <div style="font-size: 0.8rem; color: #888;">Waiting for clear sentiment direction</div>
+                    </div>
+                    <div class="signal-confidence">Confidence: --%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./sentimentTrader.js">
+        
+    </script>
+</body>
+</html>
