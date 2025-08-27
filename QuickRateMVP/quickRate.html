@@ -276,6 +276,77 @@
         </section>
     </div>
 
+    <!-- Quote Modal -->
+    <div id="quote-modal" class="hidden" aria-hidden="true">
+        <div class="modal-backdrop" onclick="closeQuoteModal()"></div>
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="quote-title">Request a Quote</h3>
+                <button class="modal-close" onclick="closeQuoteModal()">✖</button>
+            </div>
+            <div class="modal-body">
+                <div class="toggle-group">
+                    <button id="toggle-quick" class="toggle-btn active" type="button">📞 I want a call</button>
+                    <button id="toggle-detailed" class="toggle-btn" type="button">📝 Submit details</button>
+                </div>
+
+                <form id="quote-quick" class="quote-form">
+                    <div class="form-group">
+                        <label>Business</label>
+                        <input id="quote-business-quick" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="quote-phone">📱 Phone Number</label>
+                            <input id="quote-phone" class="form-control" type="tel" placeholder="(555) 123-4567" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quote-besttime">🕒 Best time to call</label>
+                            <input id="quote-besttime" class="form-control" type="text" placeholder="Today 2-4pm or ASAP">
+                        </div>
+                    </div>
+                    <div style="text-align:right; margin-top: 1rem;">
+                        <button type="submit" class="btn-primary">Request Call</button>
+                    </div>
+                </form>
+
+                <form id="quote-detailed" class="quote-form hidden">
+                    <div class="form-group">
+                        <label>Business</label>
+                        <input id="quote-business-detailed" class="form-control" type="text" readonly>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="quote-service">🛠️ Service Required</label>
+                            <input id="quote-service" class="form-control" type="text" placeholder="e.g., Emergency Leak Repair" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quote-datetime">📅 Preferred Date/Time</label>
+                            <input id="quote-datetime" class="form-control" type="text" placeholder="Tomorrow 10am or This Week">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="quote-description">📝 Description</label>
+                        <textarea id="quote-description" class="form-control" rows="4" placeholder="Briefly describe the issue or request" required></textarea>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="quote-email">✉️ Email</label>
+                            <input id="quote-email" class="form-control" type="email" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quote-phone2">📱 Phone</label>
+                            <input id="quote-phone2" class="form-control" type="tel" placeholder="(555) 123-4567" required>
+                        </div>
+                    </div>
+                    <div style="text-align:right; margin-top: 1rem;">
+                        <button type="submit" class="btn-primary">Submit Details</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="./quickRate.js">
         
     </script>

@@ -281,7 +281,7 @@ let currentPage = 'home';
                                 ${service.price}
                             </div>
                             <div style="display: flex; gap: 1rem;">
-                                <button class="btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                                <button class="btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.9rem;" onclick="openQuote('${'${service.name}'}')">
                                     💬 Get Quote
                                 </button>
                                 <button class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;" onclick="openDetails(${idx})">
@@ -341,8 +341,8 @@ let currentPage = 'home';
                             </div>
                         </div>
                         <div style="display:flex; gap:0.75rem; margin-top:1rem;">
-                            <button class="btn-secondary">Add to quote</button>
-                            <button class="btn-primary">Book inquiry</button>
+                            <button class="btn-secondary" onclick="openQuote('${'${svc.name}'}','${'${item.title}'}')">Add to quote</button>
+                            <button class="btn-primary" onclick="openQuote('${'${svc.name}'}','${'${item.title}'}')">Book inquiry</button>
                         </div>
                     </div>
                 `).join('')}
@@ -350,6 +350,92 @@ let currentPage = 'home';
 
             showPage('details');
         }
+
+        // Quote Modal logic
+        function openQuote(businessName, prefillService) {
+            const modal = document.getElementById('quote-modal');
+            if (!modal) return;
+            document.getElementById('quote-business-quick').value = businessName || '';
+            document.getElementById('quote-business-detailed').value = businessName || '';
+            const svcInput = document.getElementById('quote-service');
+            if (svcInput) svcInput.value = prefillService || '';
+
+            // default to quick
+            setQuoteMode('quick');
+            modal.classList.remove('hidden');
+            modal.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeQuoteModal() {
+            const modal = document.getElementById('quote-modal');
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.setAttribute('aria-hidden', 'true');
+        }
+
+        function setQuoteMode(mode) {
+            const quickForm = document.getElementById('quote-quick');
+            const detailedForm = document.getElementById('quote-detailed');
+            const tQuick = document.getElementById('toggle-quick');
+            const tDetailed = document.getElementById('toggle-detailed');
+            if (!quickForm || !detailedForm || !tQuick || !tDetailed) return;
+            if (mode === 'quick') {
+                quickForm.classList.remove('hidden');
+                detailedForm.classList.add('hidden');
+                tQuick.classList.add('active');
+                tDetailed.classList.remove('active');
+            } else {
+                detailedForm.classList.remove('hidden');
+                quickForm.classList.add('hidden');
+                tDetailed.classList.add('active');
+                tQuick.classList.remove('active');
+            }
+        }
+
+        (function setupQuoteModal() {
+            const tQuick = document.getElementById('toggle-quick');
+            const tDetailed = document.getElementById('toggle-detailed');
+            if (tQuick) tQuick.addEventListener('click', () => setQuoteMode('quick'));
+            if (tDetailed) tDetailed.addEventListener('click', () => setQuoteMode('detailed'));
+
+            const quickForm = document.getElementById('quote-quick');
+            const detailedForm = document.getElementById('quote-detailed');
+            const founderEmail = 'youremail@example.com'; // replace with your email
+
+            function sendMailto(subject, body) {
+                const href = `mailto:${founderEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                window.location.href = href;
+            }
+
+            if (quickForm) {
+                quickForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const business = document.getElementById('quote-business-quick').value;
+                    const phone = document.getElementById('quote-phone').value;
+                    const best = document.getElementById('quote-besttime').value;
+                    const subject = `Quick Call Request - ${business}`;
+                    const body = `Business: ${business}\nType: Quick Call\nPhone: ${phone}\nBest Time: ${best}`;
+                    sendMailto(subject, body);
+                    closeQuoteModal();
+                });
+            }
+
+            if (detailedForm) {
+                detailedForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const business = document.getElementById('quote-business-detailed').value;
+                    const service = document.getElementById('quote-service').value;
+                    const datetime = document.getElementById('quote-datetime').value;
+                    const description = document.getElementById('quote-description').value;
+                    const email = document.getElementById('quote-email').value;
+                    const phone = document.getElementById('quote-phone2').value;
+                    const subject = `Quote Request - ${business} (${service})`;
+                    const body = `Business: ${business}\nType: Detailed\nService: ${service}\nWhen: ${datetime}\nContact: ${email} / ${phone}\n\nDescription:\n${description}`;
+                    sendMailto(subject, body);
+                    closeQuoteModal();
+                });
+            }
+        })();
 
         // Header scroll effect
         window.addEventListener('scroll', () => {
