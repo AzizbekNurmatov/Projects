@@ -51,13 +51,13 @@ let priceChart;
             
             let color, label;
             if (score > 0.2) {
-                color = '#00ff88';
+                color = '#10b981';
                 label = 'Bullish';
             } else if (score < -0.2) {
-                color = '#ff0066';
+                color = '#ef4444';
                 label = 'Bearish';
             } else {
-                color = '#ffa500';
+                color = '#f59e0b';
                 label = 'Neutral';
             }
             
@@ -146,8 +146,8 @@ let priceChart;
                         {
                             label: 'Stock Price ($)',
                             data: [],
-                            borderColor: '#00ff88',
-                            backgroundColor: 'rgba(0, 255, 136, 0.15)',
+                            borderColor: '#22d3ee',
+                            backgroundColor: 'rgba(34, 211, 238, 0.18)',
                             tension: 0.4,
                             fill: 'origin',
                             yAxisID: 'y',
@@ -158,8 +158,8 @@ let priceChart;
                         {
                             label: 'Sentiment Score',
                             data: [],
-                            borderColor: '#ff6b6b',
-                            backgroundColor: 'rgba(255, 107, 107, 0.15)',
+                            borderColor: '#a78bfa',
+                            backgroundColor: 'rgba(167, 139, 250, 0.18)',
                             tension: 0.4,
                             fill: 'origin',
                             yAxisID: 'y1',
@@ -179,42 +179,43 @@ let priceChart;
                     plugins: {
                         legend: {
                             labels: {
-                                color: '#ffffff',
+                                color: '#0f172a',
                                 usePointStyle: true,
                                 padding: 20
                             }
                         },
                         tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                            titleColor: '#ffffff',
-                            bodyColor: '#ffffff',
-                            borderColor: '#00ff88',
-                            borderWidth: 1
+                            backgroundColor: 'rgba(255,255,255,0.95)',
+                            titleColor: '#0f172a',
+                            bodyColor: '#0f172a',
+                            borderColor: 'rgba(2,6,23,0.08)',
+                            borderWidth: 1,
+                            titleFont: { weight: '700' }
                         }
                     },
                     scales: {
                         x: {
                             ticks: { 
-                                color: '#888',
+                                color: '#64748b',
                                 maxTicksLimit: 10
                             },
-                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                            grid: { color: 'rgba(2, 6, 23, 0.06)' }
                         },
                         y: {
                             type: 'linear',
                             display: true,
                             position: 'left',
                             ticks: { 
-                                color: '#00ff88',
+                                color: '#0f172a',
                                 callback: function(value) {
                                     return '$' + value.toFixed(0);
                                 }
                             },
-                            grid: { color: 'rgba(0, 255, 136, 0.2)' },
+                            grid: { color: 'rgba(2, 6, 23, 0.06)' },
                             title: {
                                 display: true,
                                 text: 'Stock Price ($)',
-                                color: '#00ff88'
+                                color: '#22d3ee'
                             }
                         },
                         y1: {
@@ -222,7 +223,7 @@ let priceChart;
                             display: true,
                             position: 'right',
                             ticks: { 
-                                color: '#ff6b6b',
+                                color: '#0f172a',
                                 min: -1,
                                 max: 1,
                                 stepSize: 0.5,
@@ -232,12 +233,12 @@ let priceChart;
                             },
                             grid: {
                                 drawOnChartArea: false,
-                                color: 'rgba(255, 107, 107, 0.2)'
+                                color: 'rgba(2, 6, 23, 0.06)'
                             },
                             title: {
                                 display: true,
                                 text: 'Sentiment Score',
-                                color: '#ff6b6b'
+                                color: '#a78bfa'
                             }
                         }
                     }
