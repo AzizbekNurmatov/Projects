@@ -50,7 +50,7 @@ function App() {
   }, [])
 
   return (
-    <>
+    <div className="app-container">
       <div className="bg-animation"></div>
       
       <Header 
@@ -88,7 +88,7 @@ function App() {
         onClose={closeQuoteModal}
         quoteData={quoteData}
       />
-    </>
+    </div>
   )
 }
 

@@ -22,6 +22,16 @@ body {
     color: white;
     overflow-x: hidden;
     line-height: 1.6;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Animated background */
@@ -57,9 +67,10 @@ body {
 }
 
 .container {
-    max-width: 1400px;
+    max-width: min(1400px, 90vw);
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 clamp(1rem, 4vw, 2rem);
+    width: 100%;
 }
 
 /* Glass morphism header */
@@ -78,7 +89,10 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 2rem;
+    padding: 1.5rem clamp(1rem, 4vw, 2rem);
+    max-width: min(1400px, 90vw);
+    margin: 0 auto;
+    width: 100%;
 }
 
 .logo {
@@ -321,8 +335,9 @@ nav {
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    width: 100%;
 }
 
 .feature-card {
@@ -427,7 +442,73 @@ nav {
     margin-right: auto;
 }
 
-/* Mobile Responsive */
+/* Responsive Design */
+/* Large screens - prevent excessive stretching */
+@media (min-width: 1600px) {
+    .hero-content {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .features-grid {
+        max-width: 1400px;
+        margin: 0 auto;
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .search-results {
+        max-width: 1400px;
+        margin: 0 auto;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
+    
+    .form-grid {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+}
+
+/* Ultra-wide screens - maximum constraint */
+@media (min-width: 2000px) {
+    .container, .search-container {
+        max-width: 1600px;
+    }
+    
+    .hero-content, .features-grid, .search-results {
+        max-width: 1600px;
+    }
+}
+
+/* Medium-large screens */
+@media (max-width: 1200px) {
+    .hero-content {
+        gap: 3rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+/* Tablet */
+@media (max-width: 968px) {
+    .nav-links {
+        gap: 1.5rem;
+        margin-right: 1rem;
+    }
+    
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
+
+/* Mobile */
 @media (max-width: 768px) {
     .nav-links {
         display: none;
@@ -444,6 +525,15 @@ nav {
     }
 
     .hero-actions {
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        max-width: 300px;
         justify-content: center;
     }
 
@@ -467,9 +557,10 @@ nav {
 }
 
 .search-container {
-    max-width: 1200px;
+    max-width: min(1200px, 90vw);
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 clamp(1rem, 4vw, 2rem);
+    width: 100%;
 }
 
 .search-header {
@@ -576,8 +667,9 @@ select.form-control {
 
 .search-results {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+    width: 100%;
 }
 
 .service-card {
@@ -649,13 +741,46 @@ select.form-control {
     display: none;
 }
 
+/* Form responsiveness */
+@media (max-width: 1024px) {
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+}
+
 @media (max-width: 768px) {
     .form-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
     }
 
     .search-results {
         grid-template-columns: 1fr;
+    }
+    
+    .radius-selector {
+        justify-content: center;
+    }
+    
+    .search-form {
+        padding: 2rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-form {
+        padding: 1.5rem 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .service-card {
+        padding: 1.5rem;
+    }
+    
+    .service-metrics {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
     }
 }
 
@@ -733,4 +858,51 @@ select.form-control {
 
 .quote-form .form-group + .form-group { 
     margin-top: 0.75rem; 
+}
+
+/* Global layout improvements */
+.app-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure all main sections are properly centered */
+section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Better button responsiveness */
+.hero-actions, .cta-content .hero-actions {
+    display: flex;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Improve service card button layouts */
+.service-card .hero-actions,
+.service-card div[style*="display: flex"] {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+/* Better responsive text sizing */
+@media (max-width: 480px) {
+    .hero-text h1 {
+        font-size: clamp(2rem, 8vw, 4rem);
+    }
+    
+    .features-header h2 {
+        font-size: clamp(1.8rem, 6vw, 3rem);
+    }
+    
+    .search-header h1 {
+        font-size: clamp(2rem, 6vw, 3rem);
+    }
 }
