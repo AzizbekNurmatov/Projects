@@ -1,19 +1,23 @@
+/* ===== FONTS & RESET ===== */
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
+/* Global reset for consistent styling across browsers */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* ===== CSS CUSTOM PROPERTIES (DESIGN TOKENS) ===== */
+/* Color palette for consistent theming throughout the app */
 :root {
-    --primary: #0A9396; /* teal */
-    --secondary: #94D2BD; /* mint */
-    --accent: #EE9B00; /* orange */
-    --dark: #005F73; /* deep teal */
-    --darker: #001219; /* near-black blue */
-    --glass: rgba(255, 255, 255, 0.1);
-    --glass-dark: rgba(0, 0, 0, 0.3);
+    --primary: #0A9396; /* teal - main brand color */
+    --secondary: #94D2BD; /* mint - secondary brand color */
+    --accent: #EE9B00; /* orange - call-to-action and highlights */
+    --dark: #005F73; /* deep teal - darker backgrounds */
+    --darker: #001219; /* near-black blue - main background */
+    --glass: rgba(255, 255, 255, 0.1); /* glassmorphism effect */
+    --glass-dark: rgba(0, 0, 0, 0.3); /* darker glass effect */
 }
 
 body {
@@ -34,7 +38,8 @@ body {
     flex-direction: column;
 }
 
-/* Animated background */
+/* ===== ANIMATED BACKGROUND ===== */
+/* Creates floating gradient animations behind all content */
 .bg-animation {
     position: fixed;
     top: 0;
@@ -66,6 +71,8 @@ body {
     66% { transform: translateY(10px) rotate(-1deg); }
 }
 
+/* ===== LAYOUT CONTAINERS ===== */
+/* Main container for centering content with responsive width */
 .container {
     max-width: min(1400px, 90vw);
     margin: 0 auto;
@@ -73,7 +80,8 @@ body {
     width: 100%;
 }
 
-/* Glass morphism header */
+/* ===== HEADER & NAVIGATION ===== */
+/* Fixed header with glassmorphism effect that adapts to scroll */
 header {
     position: fixed;
     top: 0;
@@ -157,7 +165,8 @@ nav {
     box-shadow: 0 8px 25px rgba(10, 147, 150, 0.4);
 }
 
-/* Hero Section */
+/* ===== HERO SECTION ===== */
+/* Main landing area with split layout and floating cards */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -312,7 +321,8 @@ nav {
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* Features Section */
+/* ===== FEATURES SECTION ===== */
+/* Grid layout showcasing key differentiators with hover effects */
 .features {
     padding: 8rem 0;
     position: relative;
@@ -550,7 +560,8 @@ nav {
     }
 }
 
-/* Find Services Page Styles */
+/* ===== SEARCH PAGE STYLES ===== */
+/* Service discovery interface with form and results grid */
 .search-page {
     min-height: 100vh;
     padding: 8rem 0 4rem;
@@ -784,7 +795,8 @@ select.form-control {
     }
 }
 
-/* Modal */
+/* ===== MODAL SYSTEM ===== */
+/* Quote request modal with glassmorphism backdrop */
 #quote-modal {
     position: fixed;
     top: 0;

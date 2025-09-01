@@ -7,13 +7,29 @@ import DetailsPage from './components/DetailsPage'
 import ContactPage from './components/ContactPage'
 import QuoteModal from './components/QuoteModal'
 
+/**
+ * Main App Component - Root component that manages global state and routing
+ * 
+ * This component handles:
+ * - Client-side routing between different pages
+ * - Global state management for search parameters and modal state
+ * - Header scroll effects for glassmorphism styling
+ */
 function App() {
+  // Navigation state - controls which page is currently displayed
   const [currentPage, setCurrentPage] = useState('home')
+  
+  // Search state - manages search radius selection across components
   const [selectedRadius, setSelectedRadius] = useState('1')
+  
+  // Service details state - tracks which service is selected for details view
   const [selectedServiceIndex, setSelectedServiceIndex] = useState(null)
+  
+  // Modal state - controls quote modal visibility and data
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
   const [quoteData, setQuoteData] = useState({ businessName: '', prefillService: '' })
 
+  // Navigation functions
   const showPage = (page) => {
     setCurrentPage(page)
   }
@@ -32,7 +48,8 @@ function App() {
     setCurrentPage('details')
   }
 
-  // Header scroll effect
+  // Dynamic header styling based on scroll position
+  // Creates glassmorphism effect that becomes more opaque when scrolled
   useEffect(() => {
     const handleScroll = () => {
       const header = document.querySelector('header')
@@ -51,13 +68,16 @@ function App() {
 
   return (
     <div className="app-container">
+      {/* Animated background with floating gradient effects */}
       <div className="bg-animation"></div>
       
+      {/* Fixed header with glassmorphism effect */}
       <Header 
         showPage={showPage} 
         currentPage={currentPage}
       />
 
+      {/* Conditional page rendering based on current navigation state */}
       {currentPage === 'home' && (
         <HomePage showPage={showPage} />
       )}
@@ -83,6 +103,7 @@ function App() {
         <ContactPage />
       )}
 
+      {/* Global quote modal - appears over all pages when triggered */}
       <QuoteModal 
         isOpen={isQuoteModalOpen}
         onClose={closeQuoteModal}

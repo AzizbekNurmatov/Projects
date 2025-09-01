@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
 
+/**
+ * ContactPage Component - Contact form with mailto functionality
+ * 
+ * Features:
+ * - Contact form with validation
+ * - Mailto link generation for direct email sending
+ * - Fallback email app integration
+ */
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: '',

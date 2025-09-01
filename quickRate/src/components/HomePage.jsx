@@ -1,11 +1,21 @@
 import React from 'react'
 
+/**
+ * HomePage Component - Landing page with hero section, features, and CTA
+ * 
+ * This component includes:
+ * - Hero section with main value proposition and floating service cards
+ * - Features grid showcasing key differentiators
+ * - Call-to-action section to drive user engagement
+ */
 const HomePage = ({ showPage }) => {
   return (
     <div id="home-page">
+      {/* Hero Section - Main landing area with value proposition */}
       <section className="hero">
         <div className="container">
           <div className="hero-content">
+            {/* Left side - Main messaging and CTAs */}
             <div className="hero-text">
               <h1>Your Local Service Universe</h1>
               <p className="hero-subtitle">Discover trusted service providers with radical transparency. Real ratings for speed, cost & effectiveness from your actual neighbors.</p>
@@ -18,6 +28,7 @@ const HomePage = ({ showPage }) => {
                 </a>
               </div>
             </div>
+            {/* Right side - Animated floating cards showing sample services */}
             <div className="hero-visual">
               <div className="floating-card">
                 <div className="card-header">
@@ -66,12 +77,14 @@ const HomePage = ({ showPage }) => {
         </div>
       </section>
 
+      {/* Features Section - Key differentiators and value props */}
       <section className="features">
         <div className="container">
           <div className="features-header">
             <h2>Why We're Different</h2>
             <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '1.2rem' }}>No more guessing games. Real transparency for real people.</p>
           </div>
+          {/* Grid of feature cards with icons and descriptions */}
           <div className="features-grid">
             <div className="feature-card">
               <div className="feature-icon">⚡</div>
@@ -107,6 +120,7 @@ const HomePage = ({ showPage }) => {
         </div>
       </section>
 
+      {/* Call-to-Action Section - Final conversion push */}
       <section className="cta-section">
         <div className="container">
           <div className="cta-content">

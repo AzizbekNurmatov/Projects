@@ -1,6 +1,16 @@
 import React, { useState } from 'react'
 
-// Sample service data
+/**
+ * SearchPage Component - Service discovery and filtering interface
+ * 
+ * This component provides:
+ * - Search form with location, service type, and urgency filters
+ * - Radius selector for geographic search scope
+ * - Dynamic results display with service cards
+ * - Integration with quote modal and details page
+ */
+
+// Sample service data - represents local service providers with ratings
 const sampleServices = [
   {
     name: "Mike's Rapid Repairs",
@@ -107,6 +117,7 @@ const sampleServices = [
 ]
 
 const SearchPage = ({ selectedRadius, setSelectedRadius, openQuote, openDetails }) => {
+  // Search state management
   const [searchResults, setSearchResults] = useState([])
   const [hasSearched, setHasSearched] = useState(false)
   const [formData, setFormData] = useState({
@@ -127,9 +138,11 @@ const SearchPage = ({ selectedRadius, setSelectedRadius, openQuote, openDetails 
     setSelectedRadius(radius)
   }
 
+  // Main search function - filters and sorts services based on user input
   const searchServices = () => {
     const { service, location, urgency } = formData
 
+    // Form validation
     if (!location) {
       alert('Please enter your location')
       return
@@ -140,12 +153,12 @@ const SearchPage = ({ selectedRadius, setSelectedRadius, openQuote, openDetails 
       return
     }
 
-    // Filter services based on selection
+    // Filter services based on selected service type
     let results = sampleServices.filter(serviceItem => 
       service === '' || serviceItem.type === service
     )
 
-    // Add some randomization and urgency-based sorting
+    // Sort by speed rating for urgent requests
     if (urgency === 'asap') {
       results = results.sort((a, b) => b.speed - a.speed)
     }
@@ -257,6 +270,7 @@ const SearchPage = ({ selectedRadius, setSelectedRadius, openQuote, openDetails 
             <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '1.2rem' }}>Tell us what you need, and we'll show you the best local options</p>
           </div>
 
+          {/* Main search form with location, service type, urgency, and radius */}
           <div className="search-form">
             <div className="form-grid">
               <div className="form-group">
@@ -357,6 +371,7 @@ const SearchPage = ({ selectedRadius, setSelectedRadius, openQuote, openDetails 
             </div>
           </div>
 
+          {/* Dynamic search results - displays service cards based on search criteria */}
           <div id="search-results" className="search-results">
             {displayResults()}
           </div>

@@ -1,5 +1,15 @@
 import React from 'react'
 
+/**
+ * DetailsPage Component - Individual service provider details view
+ * 
+ * Shows:
+ * - Service provider profile and ratings
+ * - Detailed service offerings with pricing
+ * - Integration with quote system
+ * - Navigation back to search results
+ */
+
 // Sample service data (same as in SearchPage)
 const sampleServices = [
   {
